@@ -14,9 +14,9 @@ interface Project {
   description: string;
   tech: string[];
   image: string;
-  screenshots?: string[]; // Optional
-  features?: string[]; // Optional
-  languages?: string[]; // Optional
+  screenshots: string[];
+  features: string[];
+  languages: string[];
   demoUrl?: string;
   githubUrl?: string;
 }
@@ -27,8 +27,6 @@ const ProjectSection: React.FC = () => {
     triggerOnce: true,
   });
   const [showAllProjects, setShowAllProjects] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   const toggleShowAllProjects = () => {
     setShowAllProjects(!showAllProjects);
@@ -38,7 +36,9 @@ const ProjectSection: React.FC = () => {
     ? projectsData
     : projectsData.slice(0, 4);
 
-  const handleProjectClick = (project: Project) => {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const handleProjectClick = (project: any) => {
     setSelectedProject(project);
     document.body.style.overflow = "hidden";
   };
@@ -47,6 +47,8 @@ const ProjectSection: React.FC = () => {
     setSelectedProject(null);
     document.body.style.overflow = "auto";
   };
+
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   const handleScreenshotClick = (screenshot: string) => {
     setZoomedImage(screenshot);
@@ -76,21 +78,21 @@ const ProjectSection: React.FC = () => {
           {displayedProjects.map((project, index) => (
             <motion.div
               key={index}
-              onClick={() => handleProjectClick(projects)}
+              onClick={() => handleProjectClick(project)}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: inView ? 1 : 0, scale: inView ? 1 : 0.9 }}
               transition={{ duration: 0.6, delay: 0.1 * index }}
               exit={{ opacity: 0, scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
               style={{ cursor: "pointer" }}
-              className="bg-white dark:bg-[#232D3F] text-black border-white dark:border-[#232D3F] border-solid border-8 rounded-xl shadow-lg hover:shadow-xl overflow-hidden"
+              className="bg-white dark:bg-[#232D3F] text-black  border-white dark:border-[#232D3F] border-solid border-8 rounded-xl shadow-lg hover:shadow-xl overflow-hidden"
             >
               <img
                 src={project.image}
                 alt={project.title}
                 className="w-full h-49 object-cover"
-                width="100%"
-                height="196"
+                width="100%" // Atur lebar sesuai kebutuhan atau gunakan persentase
+                height="196" // Atur tinggi sesuai kebutuhan
               />
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2 dark:text-white">
@@ -146,11 +148,12 @@ const ProjectSection: React.FC = () => {
               className="group flex items-center justify-center gap-2 h-[3rem] w-[8rem] bg-gray-900 text-white rounded-md outline-none transition-all focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 dark:bg-white dark:bg-opacity-10 disabled:scale-100 disabled:bg-opacity-65"
             >
               Load More
-              <FaArrowDown className="text-xs opacity-70 transition-all" />
+              <FaArrowDown className="text-xs opacity-70 transition-all" />{" "}
             </button>
           </div>
         )}
       </div>
+      {/* Modal for detailed description */}
       {selectedProject && (
         <div className="modal-overlay flex items-center justify-center">
           <motion.div
@@ -158,6 +161,7 @@ const ProjectSection: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
+            {" "}
             <div className="bg-white dark:bg-[#232D3F] p-8 max-w-[900px] w-full mx-4 my-8 rounded-xl shadow-lg relative overflow-y-scroll max-h-[80vh]">
               <button
                 onClick={handleCloseModal}
@@ -168,15 +172,17 @@ const ProjectSection: React.FC = () => {
               <h2 className="text-xl font-semibold mb-2 dark:text-white">
                 {selectedProject.title}
               </h2>
-              <p className="modal-content text-gray-600 dark:text-gray-200 mb-4 text-justify">
-                {selectedProject.description}
-              </p>
+              <div className=" relative overflow-y-auto">
+                <p className="modal-content text-gray-600 dark:text-gray-200 mb-4 text-justify max-h-60vh">
+                  {selectedProject.description}
+                </p>
+              </div>
               <div className="mb-4">
                 <h3 className="text-lg font-semibold mb-2 dark:text-white">
                   Features I Worked On:
                 </h3>
                 <ul className="list-disc list-inside">
-                  {selectedProject.features?.map((feature, index) => (
+                  {selectedProject.features.map((feature, index) => (
                     <li
                       key={index}
                       className="text-gray-600 dark:text-gray-200"
@@ -190,7 +196,7 @@ const ProjectSection: React.FC = () => {
                 Click the image to enlarge
               </h4>
               <div className="flex space-x-4 flex-wrap mb-4">
-                {selectedProject.screenshots?.map((screenshot, index) => (
+                {selectedProject.screenshots.map((screenshot, index) => (
                   <img
                     key={index}
                     src={screenshot}
@@ -203,15 +209,17 @@ const ProjectSection: React.FC = () => {
               <h4 className="text-lg font-semibold mb-2 dark:text-white">
                 Language and Tools
               </h4>
-              <div className="flex space-x-2">
-                {selectedProject.languages?.map((language, index) => (
-                  <span
-                    key={index}
-                    className="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-sm"
-                  >
-                    {language}
-                  </span>
-                ))}
+              <div className="flex justify-between items-end">
+                <div className="flex space-x-2">
+                  {selectedProject.languages.map((language, index) => (
+                    <span
+                      key={index}
+                      className="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-sm"
+                    >
+                      {language}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
