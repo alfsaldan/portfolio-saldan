@@ -65,7 +65,7 @@ export default function Intro() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <span className="font-bold">2.5 years</span> of experience in fullstack
+        <span className="font-bold">2 years</span> of experience in web & application
         development, using{" "}
         <span className="font-bold">Laravel and Codeigniter</span> for
         developing a website and web applications.
@@ -91,7 +91,7 @@ export default function Intro() {
 
         <a
           className="group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10"
-          href="/cv/resumesaya.pdf"
+          href="/cv/resume-alfisaldan.pdf"
           download
         >
           Download CV{" "}

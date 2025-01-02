@@ -65,7 +65,7 @@ export const projectsData = [
   {
     title: "SENILOKA",
     description:
-      "Seniloka adalah platform digital yang dirancang untuk melestarikan dan mempromosikan seni budaya lokal Indonesia. Platform ini mengintegrasikan berbagai fitur seperti galeri seni, informasi budaya, acara seni, dan komunitas kreatif untuk mendukung seniman lokal dan pencinta budaya. Dengan antarmuka yang ramah pengguna dan sistem keamanan yang andal, Seniloka menjadi ruang kolaborasi dan eksplorasi karya seni untuk meningkatkan apresiasi terhadap kekayaan budaya Indonesia.",
+      "Seniloka is a digital platform designed to preserve and promote Indonesia's local cultural arts. The platform integrates various features such as art galleries, cultural information, art events, and creative communities to support local artists and culture lovers. With a user-friendly interface and reliable security system, Seniloka is a space for collaboration and art exploration to increase appreciation for Indonesia's rich culture.",
     screenshots: [
       "images/project/seniloka/1.jpg",
       "images/project/seniloka/2.jpg",
